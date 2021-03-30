@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Tv Show</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>Add a New TV Show</h1>
+    {% if messages %}
+<ul class="messages">    
+    {% for message in messages %}    
+        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+    {% endfor %}
+</ul>
+{% endif %}
+    <form action="/shows/create/" method="post">
+        {% csrf_token %}
+    <div class="tv">
+        <label for="title">Title</label>
+        <input type="text" name="title" id="title" required>
+    </div>
+    <div class="tv">
+        <label for="network">Network</label>
+        <input type="text" name="network" id="network">
+    </div><div class="tv">
+        <label for="release_date">Release Date</label>
+        <input type="text" name="release_date" id="release_date">
+    </div>
+    <div class="tv">
+        <label for="description">Description</label>
+        <textarea name="description" id="description" cols="30" rows="10" class="control"></textarea>
+        <button class="btn btn-primary">Submit</button>
+    </div>
+    </form>
+</body>
+</html>

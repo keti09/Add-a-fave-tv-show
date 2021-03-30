@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>Update Show</h1>
+    {% if messages %}
+<ul class="messages">    
+    {% for message in messages %}    
+        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+    {% endfor %}
+</ul>
+{% endif %}
+    <form action="/shows/{{show.id}}/update" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" name="title" id="title" class="form-control" value="{{ show.title}}">
+        </div>
+        <div class="form-group">
+            <label for="network">Network</label>
+            <input type="text" name="network" id="network" class="form-control" value="{{ show.network}}">
+        </div>
+        <div class="form-group">
+            <label for="release_date">Release Date</label>
+            <input type="date" name="release_date" id="release_date" class="form-control" value="{{ show.release_date|date:'Y-m-d'}}">
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea name="description" id="description" cols="30" rows="10" class="form-control">{{ show.description}}</textarea>
+        </div>
+        <button class="btn btn-primary">Update</button>
+        <br>
+        <a href="/shows/{{ show.id }}/edit">View Show</a> |   <a href="/shows/read">Go Back</a>
+</body>
+</html>
